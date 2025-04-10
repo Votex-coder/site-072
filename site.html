@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STIKI: 072</title>
+    <style>
+        /* Подключение шрифта из локальных файлов */
+        @font-face {
+            font-family: 'Full Lettersano';
+            src: url('FullLettersano-Regular.woff2') format('woff2'),
+                 url('FullLettersano-Regular.woff') format('woff'),
+                 url('FullLettersano-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Full Lettersano';
+            src: url('FullLettersano-Bold.woff2') format('woff2'),
+                 url('FullLettersano-Bold.woff') format('woff'),
+                 url('FullLettersano-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        body {
+            font-family: 'Full Lettersano', sans-serif;
+            background: url('bg.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            padding: 40px 0;
+        }
+        
+        .card {
+            background-color: rgba(61, 72, 88, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+        }
+        
+        .card h2 {
+            margin-top: 0;
+            color: white;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+        }
+        
+        .icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .icon img {
+            width: 160px;
+            height: 130px;
+            transition: all 0.3s ease;
+        }
+        
+        .icon:hover {
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .icon:hover img {
+            transform: scale(1.1);
+        }
+        
+        .timer {
+            font-size: 28px;
+            color: #ff3333;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            margin: 20px 0;
+            animation: pulse 1.5s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from {
+                text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            }
+        }
+        
+        .coming-soon {
+            color: white;
+            font-style: italic;
+            font-size: 20px;
+            opacity: 0.8;
+            animation: fadeInOut 2s infinite ease-in-out;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        .footer {
+            margin-top: auto;
+            text-align: right;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            animation: slideIn 1s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* Анимация появления карточек */
+        .card:nth-child(1) {
+            animation: cardAppear 0.8s ease-out 0.2s both;
+        }
+        
+        .card:nth-child(2) {
+            animation: cardAppear 0.8s ease-out 0.4s both;
+        }
+        
+        @keyframes cardAppear {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .arrow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 130%;
+        }
+        
+        .arrow {
+            width: 100px;
+            height: 60px;
+            background-image: url('line.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            animation: arrowPulse 2s infinite ease-in-out;
+        }
+        
+        .arrow:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        
+        @keyframes arrowPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 0.9; }
+        }
+
+        /* Адаптируем контейнер для правильного расположения стрелки */
+        .container {
+            display: flex;
+            flex-wrap: nowrap; /* Изменено с wrap на nowrap */
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            padding: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Among Us [Demo]</h2>
+            <div class="icon">
+                <img src="banana.png" alt="Among Us Icon">
+            </div>
+            <div class="timer" id="brokenTimer">00:00:00</div>
+        </div>
+
+        <div class="arrow-container">
+            <div class="arrow"></div>
+        </div>
+        
+        <div class="card">
+            <h2>Complete Mod [Full]</h2>
+            <div class="icon">
+                <img src="wait.png" alt="Mod Icon">
+            </div>
+            <p class="coming-soon">coming soon</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        do you want support or help mod? type me in discord: _v1tx
+    </div>
+
+    <script>
+        // Сломанный таймер с более интересными эффектами
+        function updateBrokenTimer() {
+            const timerElement = document.getElementById('brokenTimer');
+            const hours = Math.floor(Math.random() * 24).toString().padStart(2, '0');
+            const minutes = Math.floor(Math.random() * 60).toString().padStart(2, '0');
+            const seconds = Math.floor(Math.random() * 60).toString().padStart(2, '0');
+            
+            // Добавляем случайные "глюки" в отображение
+            const glitchChance = Math.random();
+            if (glitchChance > 0.9) {
+                timerElement.textContent = `##:##:##`;
+            } else if (glitchChance > 0.8) {
+                timerElement.textContent = `${hours}::${seconds}`;
+            } else if (glitchChance > 0.7) {
+                timerElement.textContent = `${minutes}${seconds}${hours}`;
+            } else {
+                timerElement.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+            
+            // Меняем время очень быстро (каждые 50-300ms)
+            const nextUpdate = Math.random() * 250 + 50;
+            setTimeout(updateBrokenTimer, nextUpdate);
+        }
+        
+        // Запускаем таймер при загрузке страницы
+        window.onload = function() {
+            updateBrokenTimer();
+            
+            // Добавляем случайные подрагивания иконкам для эффекта "глюка"
+            setInterval(function() {
+                const icons = document.querySelectorAll('.icon');
+                icons.forEach(icon => {
+                    if (Math.random() > 0.9) {
+                        icon.style.transform = 'translateX(' + (Math.random() * 6 - 3) + 'px) translateY(' + (Math.random() * 6 - 3) + 'px)';
+                        setTimeout(() => {
+                            icon.style.transform = '';
+                        }, 200);
+                    }
+                });
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
