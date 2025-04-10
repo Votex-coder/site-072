@@ -198,60 +198,6 @@
             flex-grow: 1;
             padding: 40px 0;
         }
-        .video-section {
-            width: 100%;
-            padding: 80px 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            text-align: center;
-            margin-top: 100px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .video-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding-bottom: 56.25%; /* 16:9 соотношение */
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transform: scale(0.95);
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-        }
-        
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .video-container:hover {
-            transform: scale(1);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
-        }
-        
-        .video-title {
-            font-size: 24px;
-            margin-bottom: 30px;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* Анимация появления видео */
-        @keyframes videoAppear {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .video-section {
-            animation: videoAppear 1s ease-out both;
-            animation-delay: 0.5s;
-        }
     </style>
 </head>
 <body>
@@ -281,15 +227,6 @@
         do you want support or help mod? type me in discord: _v1tx
     </div>
 
-    <div class="video-section">
-        <h2 class="video-title">That</h2>
-        <div class="video-container">
-            <iframe src="https://youtu.be/cs4uNB-k2Ic" 
-                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope;" 
-                    ></iframe>
-        </div>
-    </div>
-
     <script>
         // Сломанный таймер с более интересными эффектами
         function updateBrokenTimer() {
@@ -314,27 +251,6 @@
             const nextUpdate = Math.random() * 250 + 50;
             setTimeout(updateBrokenTimer, nextUpdate);
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const videoSection = document.querySelector('.video-section');
-            
-            function checkVideoVisibility() {
-                const rect = videoSection.getBoundingClientRect();
-                const isVisible = (
-                    rect.top <= window.innerHeight * 0.75 && 
-                    rect.bottom >= window.innerHeight * 0.25
-                );
-                
-                if (isVisible) {
-                    videoSection.style.animationPlayState = 'running';
-                    window.removeEventListener('scroll', checkVideoVisibility);
-                }
-            }
-            
-            // Запускаем проверку при загрузке и при скролле
-            window.addEventListener('scroll', checkVideoVisibility);
-            checkVideoVisibility();
-        });
         
         // Запускаем таймер при загрузке страницы
         window.onload = function() {
