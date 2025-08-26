@@ -203,11 +203,11 @@
 <body>
     <div class="container">
         <div class="card">
-            <h2>Among Us [Demo]</h2>
+            <h2>Demo</h2>
             <div class="icon">
                 <img src="banana.png" alt="Among Us Icon">
             </div>
-            <div class="timer" id="brokenTimer">00:00:00</div>
+            <div class="timer" id="countdownTimer">00:00:00</div>
         </div>
 
         <div class="arrow-container">
@@ -228,33 +228,31 @@
     </div>
 
     <script>
-        // Сломанный таймер с более интересными эффектами
-        function updateBrokenTimer() {
-            const timerElement = document.getElementById('brokenTimer');
-            const hours = Math.floor(Math.random() * 24).toString().padStart(2, '0');
-            const minutes = Math.floor(Math.random() * 60).toString().padStart(2, '0');
-            const seconds = Math.floor(Math.random() * 60).toString().padStart(2, '0');
+        // Таймер обратного отсчета до 29 августа 2025 года
+        function updateCountdownTimer() {
+            const targetDate = new Date('August 29, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
             
-            // Добавляем случайные "глюки" в отображение
-            const glitchChance = Math.random();
-            if (glitchChance > 0.9) {
-                timerElement.textContent = `##:##:##`;
-            } else if (glitchChance > 0.8) {
-                timerElement.textContent = `${hours}::${seconds}`;
-            } else if (glitchChance > 0.7) {
-                timerElement.textContent = `${minutes}${seconds}${hours}`;
-            } else {
-                timerElement.textContent = `${hours}:${minutes}:${seconds}`;
+            if (distance < 0) {
+                document.getElementById('countdownTimer').textContent = "00:00:00";
+                return;
             }
             
-            // Меняем время очень быстро (каждые 50-300ms)
-            const nextUpdate = Math.random() * 250 + 50;
-            setTimeout(updateBrokenTimer, nextUpdate);
+            // Вычисляем дни, часы и минуты
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            
+            // Форматируем вывод
+            document.getElementById('countdownTimer').textContent = 
+                `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
         }
         
-        // Запускаем таймер при загрузке страницы
+        // Запускаем таймер при загрузке страницы и обновляем каждую минуту
         window.onload = function() {
-            updateBrokenTimer();
+            updateCountdownTimer();
+            setInterval(updateCountdownTimer, 60000); // Обновление каждую минуту
             
             // Добавляем случайные подрагивания иконкам для эффекта "глюка"
             setInterval(function() {
